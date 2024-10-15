@@ -1,28 +1,23 @@
 import { Component } from '@angular/core';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { MatIconButton } from '@angular/material/button';
+import { MatDrawer, MatDrawerContainer, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIcon } from '@angular/material/icon';
-import { MatList, MatListItem } from '@angular/material/list';
 import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MenuComponent } from '../section/menu/menu.component';
 
 @Component({
   selector: 'app-content',
   standalone: true,
   imports: [
-    MatButton,
-    MatDrawer,
     MatDrawerContainer,
-    MatDrawerContent,
-    MatIcon,
-    MatIconButton,
-    MatList,
-    MatListItem,
-    MatToolbar,
-    RouterOutlet,
-    RouterLink,
+    MatDrawer,
     MenuComponent,
+    MatToolbar,
+    MatIcon,
+    RouterOutlet,
+    MatIconButton,
+    MatSidenavModule,
   ],
   templateUrl: 'content.component.html',
   styles: `
@@ -31,6 +26,7 @@ import { MenuComponent } from '../section/menu/menu.component';
       height: 100%;
       display: flex;
     }
+
     .example-container {
       width: 100%;
       display: block;
