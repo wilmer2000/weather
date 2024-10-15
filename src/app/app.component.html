@@ -1,0 +1,27 @@
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'over'">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <button mat-button>Inicio</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button mat-button>Favoritos</button>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <button mat-button>Ajustes</button>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Weather App</span>
+    </mat-toolbar>
+    <div>
+      <router-outlet />
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
