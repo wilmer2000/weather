@@ -1,6 +1,6 @@
 {
-    "/api/*": {
-        "target": "https://d2rwcq0tmps9y8.cloudfront.net",
+    "/weather/api/*": {
+        "target": "https://open-weather13.p.rapidapi.com",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,
