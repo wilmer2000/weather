@@ -1,1 +1,25 @@
 export const WEATHER_KEY_LOCAL_STORAGE = 'weather_key';
+export const WEATHER_MOCK_DATA = {
+  'coord': { 'lon': -89.1028, 'lat': 30.438 },
+  'weather': [{ 'id': 804, 'main': 'Clouds', 'description': 'overcast clouds', 'icon': '04d' }],
+  'base': 'stations',
+  'main': {
+    'temp': 80.2,
+    'feels_like': 83.41,
+    'temp_min': 79.95,
+    'temp_max': 80.6,
+    'pressure': 1014,
+    'humidity': 71,
+    'sea_level': 1014,
+    'grnd_level': 1012,
+  },
+  'visibility': 10000,
+  'wind': { 'speed': 4.61, 'deg': 150 },
+  'clouds': { 'all': 100 },
+  'dt': 1729022595,
+  'sys': { 'type': 2, 'id': 2015175, 'country': 'US', 'sunrise': 1728993526, 'sunset': 1729034701 },
+  'timezone': -18000,
+  'id': 4429197,
+  'name': 'Landon',
+  'cod': 200,
+};
