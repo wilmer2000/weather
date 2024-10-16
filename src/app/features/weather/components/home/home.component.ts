@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { WeatherService } from '../../services/weather.service';
 import { Weather } from '../../classes/weather.class';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { WeatherService } from '../../services/weather.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +11,6 @@ import { AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
   templateUrl: './home.component.html',
-  styles: ``,
 })
 export class HomeComponent implements OnInit {
   weather$: Observable<Weather | null>;
@@ -19,6 +18,5 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.weather$ = this.weatherService.getCurrentWeather();
-    this.weather$.subscribe((data: any) => console.log(data));
   }
 }

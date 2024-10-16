@@ -26,7 +26,9 @@ export class WeatherService {
   }
 
   getCurrentWeather(): Observable<Weather | null> {
-    this.setWeatherToLocalStorage(null)
+    if (!this.localStorage.hasItem(WEATHER_KEY_LOCAL_STORAGE)) {
+      this.getWeatherByCity('montevideo');
+    }
     return this.data$;
   }
 

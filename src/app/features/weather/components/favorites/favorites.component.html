@@ -1,4 +1,20 @@
-Favoritos
-
+@let favorites = favorites$ | async ;
+@if (favorites) {
+  <mat-list>
+    @for (fav of favorites; track fav.countryId) {
+      <mat-list-item>
+        <span matListItemTitle>Title</span>
+        <span matListItemLine>Second line</span>
+        <span matListItemLine>Third line</span>
+      </mat-list-item>
+    }
+  </mat-list>
+} @else {
+  <mat-grid-list cols="1">
+    <mat-grid-tile>
+      No favorites
+    </mat-grid-tile>
+  </mat-grid-list>
+}
 
 
