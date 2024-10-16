@@ -9,6 +9,8 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatLine } from '@angular/material/core';
+import { WeatherService } from '../../services/weather.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorites',
@@ -36,6 +38,8 @@ import { MatLine } from '@angular/material/core';
 })
 export class FavoritesComponent implements OnInit {
   private readonly favoritesService: FavoritesService = inject(FavoritesService);
+  private readonly weatherService: WeatherService = inject(WeatherService);
+  private readonly router: Router = inject(Router);
   favorites$: Observable<IFavorites[] | null>;
 
   ngOnInit(): void {
@@ -43,5 +47,9 @@ export class FavoritesComponent implements OnInit {
   }
   removeFav(cityId: number) {
     this.favoritesService.removeFavorite(cityId)
+  }
+  openCity(city: string) {
+    this.weatherService.getNewCity(city);
+    this.router.navigate(['/home']);
   }
 }

@@ -29,7 +29,11 @@ export class WeatherService {
   }
 
   getNewCity(city: string): void {
-    this.getWeatherByCity(city);
+    const currentCity = this.dataSubject.getValue();
+
+    if (currentCity?.name !== city) {
+      this.getWeatherByCity(city);
+    }
   }
 
   getCurrentWeather(): Observable<Weather | null> {

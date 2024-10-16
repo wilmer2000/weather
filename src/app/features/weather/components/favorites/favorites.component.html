@@ -9,6 +9,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="openCity(fav.city)">
+              <mat-icon>open_in_new</mat-icon>
+              <span>View weather</span>
+            </button>
             <button mat-menu-item (click)="removeFav(fav.cityId)">
               <mat-icon>delete</mat-icon>
               <span>Remove</span>
