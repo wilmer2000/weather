@@ -12,8 +12,8 @@ import { MatList, MatListItem } from '@angular/material/list';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, MatGridList, MatGridTile, MatDrawerContent, MatDrawer, MatDrawerContainer, MatToolbar, MatIconButton, MatIcon, MatList, MatListItem, MatButton],
-  templateUrl: 'app.component.html',
-  styleUrl: 'app.component.scss',
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'weather';

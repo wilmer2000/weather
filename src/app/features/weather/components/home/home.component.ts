@@ -10,7 +10,7 @@ import { AsyncPipe } from '@angular/common';
   imports: [
     AsyncPipe,
   ],
-  templateUrl: 'home.component.html',
+  templateUrl: './home.component.html',
   styles: ``,
 })
 export class HomeComponent implements OnInit {

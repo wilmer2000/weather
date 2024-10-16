@@ -19,7 +19,7 @@ import { MenuComponent } from '../section/menu/menu.component';
     MatIconButton,
     MatSidenavModule,
   ],
-  templateUrl: 'content.component.html',
+  templateUrl: './content.component.html',
   styles: `
     :host {
       width: 100%;

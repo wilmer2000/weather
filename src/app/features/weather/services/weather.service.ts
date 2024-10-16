@@ -33,11 +33,6 @@ export class WeatherService {
   private setWeatherToLocalStorage(data: any): void {
     const city = new Weather(WEATHER_MOCK_DATA);
     this.localStorage.setItem(WEATHER_KEY_LOCAL_STORAGE, city);
-    this.dispatchUpdate(this.localStorage.getItem(WEATHER_KEY_LOCAL_STORAGE));
+    this.dataSubject.next(this.localStorage.getItem(WEATHER_KEY_LOCAL_STORAGE));
   }
-
-  private dispatchUpdate(data: any): void {
-    this.dataSubject.next(data);
-  }
-
 }
