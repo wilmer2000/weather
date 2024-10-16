@@ -1,51 +1,69 @@
 @let weather = weather$ | async ;
-
+<mat-grid-list [cols]="1" [rowHeight]="200">
+  <mat-grid-tile>
+    <mat-form-field class="example-form-field">
+      <mat-label>Search a city</mat-label>
+      <input matInput type="text" [(ngModel)]="newCity">
+      @if (newCity) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="newCity=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      }
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
 @if (weather) {
-  <div class="container">
-    <mat-grid-list [cols]="1" [rowHeight]="300">
-      <mat-grid-tile>
-        <mat-card class="w-100 h-100" appearance="outlined">
-          <mat-card-content>
-            <img class="example-header-image" [ngSrc]="weather.getIcon" [height]="120" [width]="120"  alt="icon"/>
-            <h2>{{ weather.getTemperatureInCelsius }}°C</h2>
-            <span>{{ weather.getCityDetail }}</span>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list [cols]="3" [rowHeight]="'100px'" [gutterSize]="'1.5rem'" class="mt-3">
-      <mat-grid-tile>
-        <mat-card class="w-100 h-100" appearance="outlined">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>{{ weather.getWeatherDetail.pressure }}</mat-card-title>
-              <mat-card-subtitle>Pressure</mat-card-subtitle>
-            </mat-card-title-group>
-          </mat-card-header>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="w-100 h-100" appearance="outlined">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>{{ weather.getWeatherDetail.humidity }}%</mat-card-title>
-              <mat-card-subtitle>Humidity</mat-card-subtitle>
-            </mat-card-title-group>
-          </mat-card-header>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-card class="w-100 h-100" appearance="outlined">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>{{ weather.getWind.speed }}</mat-card-title>
-              <mat-card-subtitle>Wind</mat-card-subtitle>
-            </mat-card-title-group>
-          </mat-card-header>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
-
+  <mat-grid-list [cols]="1" [rowHeight]="300">
+    <mat-grid-tile>
+      <mat-card class="w-100 h-100" appearance="outlined">
+        <mat-card-content>
+          @if (weather.getIcon) {
+            <img class="example-header-image" [ngSrc]="weather.getIcon" [height]="120" [width]="120" alt="icon" />
+          }
+          <h2>{{ weather.getTemperatureInCelsius }}°C</h2>
+          <span>{{ weather.getCityDetail }}</span>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list [cols]="3" [rowHeight]="'100px'" [gutterSize]="'1.5rem'" class="mt-3">
+    <mat-grid-tile>
+      <mat-card class="w-100 h-100" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ weather.getWeatherDetail.pressure }}</mat-card-title>
+            <mat-card-subtitle>Pressure</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="w-100 h-100" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ weather.getWeatherDetail.humidity }}%</mat-card-title>
+            <mat-card-subtitle>Humidity</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card class="w-100 h-100" appearance="outlined">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>{{ weather.getWind.speed }}</mat-card-title>
+            <mat-card-subtitle>Wind</mat-card-subtitle>
+          </mat-card-title-group>
+        </mat-card-header>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="position-fixed btn-favorite">
+    <button mat-fab (click)="addCityToFav(weather)">
+      <mat-icon>favorite</mat-icon>
+    </button>
   </div>
 }
+
+
+

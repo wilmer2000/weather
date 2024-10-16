@@ -31,6 +31,13 @@ import { MenuComponent } from '../../../features/weather/components/section/menu
       width: 100%;
       display: block;
     }
+
+    .content-app {
+      display: block;
+      height: calc(100% - 56px);
+      position: relative;
+      overflow: auto;
+    }
   `,
 })
 export class ContentComponent {

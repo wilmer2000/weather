@@ -4,9 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { FAVORITES_KEY_LOCAL_STORAGE } from '../constants/favorites.constant';
 
 export interface IFavorites {
-  countryId: string;
+  cityId: number;
   country: string;
-  state: string;
   city: string;
 }
 
@@ -23,6 +22,9 @@ export class FavoritesService {
   }
 
   getFavorites(): Observable<IFavorites[] | null> {
+    if (!this.localStorage.hasItem(FAVORITES_KEY_LOCAL_STORAGE)) {
+      this.loadFavorites();
+    }
     return this.data$;
   }
 
@@ -37,22 +39,10 @@ export class FavoritesService {
     this.dataSubject.next(currentFavorites);
   }
 
-  updateFavorite(updatedFavorite: IFavorites): void {
+  removeFavorite(cityId: number): void {
     const currentFavorites = this.dataSubject.getValue();
     if (currentFavorites) {
-      const index = currentFavorites.findIndex(fav => fav.countryId === updatedFavorite.countryId);
-      if (index !== -1) {
-        currentFavorites[index] = updatedFavorite;
-        this.localStorage.setItem(FAVORITES_KEY_LOCAL_STORAGE, currentFavorites);
-        this.dataSubject.next(currentFavorites);
-      }
-    }
-  }
-
-  removeFavorite(countryId: string): void {
-    const currentFavorites = this.dataSubject.getValue();
-    if (currentFavorites) {
-      const newFavorites = currentFavorites.filter((fav: IFavorites) => fav.countryId !== countryId);
+      const newFavorites = currentFavorites.filter((fav: IFavorites) => fav.cityId !== cityId);
       this.localStorage.setItem(FAVORITES_KEY_LOCAL_STORAGE, newFavorites);
       this.dataSubject.next(newFavorites);
     }

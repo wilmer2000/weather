@@ -50,6 +50,7 @@ export class Weather {
   get getWind(): IWeatherWind {
     return this.wind;
   }
+
   get getCityDetail(): string {
     return `${this.name} - ${this.sys.country}`;
   }
@@ -57,6 +58,7 @@ export class Weather {
   get getWeatherDetail(): IWeatherMain {
     return this.main;
   }
+
   get getIcon(): string {
     return `https://openweather.site/img/wn/${this.weather[0].icon}.png`;
   }
