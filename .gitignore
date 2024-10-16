@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 
 env.settings.json
+api-keys.ts
