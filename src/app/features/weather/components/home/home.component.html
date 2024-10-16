@@ -1,9 +1,9 @@
 @let weather = weather$ | async ;
 <mat-grid-list [cols]="1" [rowHeight]="200">
   <mat-grid-tile>
-    <mat-form-field class="example-form-field">
+    <mat-form-field>
       <mat-label>Search a city</mat-label>
-      <input matInput type="text" [(ngModel)]="newCity">
+      <input matInput type="text" [(ngModel)]="newCity" (keyup)="searchCity($event)">
       @if (newCity) {
         <button matSuffix mat-icon-button aria-label="Clear" (click)="newCity=''">
           <mat-icon>close</mat-icon>
@@ -18,7 +18,7 @@
       <mat-card class="w-100 h-100" appearance="outlined">
         <mat-card-content>
           @if (weather.getIcon) {
-            <img class="example-header-image" [ngSrc]="weather.getIcon" [height]="120" [width]="120" alt="icon" />
+            <img class="example-header-image" src="{{weather.getIcon}}" [height]="120" [width]="120" alt="icon" />
           }
           <h2>{{ weather.getTemperatureInCelsius }}°C</h2>
           <span>{{ weather.getCityDetail }}</span>
@@ -63,6 +63,19 @@
       <mat-icon>favorite</mat-icon>
     </button>
   </div>
+} @else if (newCity) {
+  <mat-grid-list [cols]="1" [rowHeight]="300">
+    <mat-grid-tile>
+      La ciudad {{ newCity }} no existe.
+    </mat-grid-tile>
+  </mat-grid-list>
+} @else {
+
+  <mat-grid-list [cols]="1" [rowHeight]="300">
+    <mat-grid-tile>
+      Realice la búsqueda de alguna ciudad.
+    </mat-grid-tile>
+  </mat-grid-list>
 }
 
 

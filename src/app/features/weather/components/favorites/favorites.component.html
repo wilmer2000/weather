@@ -1,22 +1,23 @@
 @let favorites = favorites$ | async ;
 @if (favorites) {
-  <mat-list class="w-100">
+
     @for (fav of favorites; track $index) {
-      <mat-card-content>
-        <span matListItemTitle>{{ fav.city }}</span>
-        <span matListItemTitle>{{ fav.country }}</span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="removeFav(fav.cityId)">
-            <mat-icon>delete</mat-icon>
-            <span>Remove</span>
+      <mat-card [class]="{'mt-3': $index > 0 }">
+        <mat-card-content>
+          <span matListItemTitle>{{ fav.city }} - {{ fav.country }}</span>
+          <button style="margin-left:30px" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
-        </mat-menu>
-      </mat-card-content>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="removeFav(fav.cityId)">
+              <mat-icon>delete</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </mat-card-content>
+      </mat-card>
     }
-  </mat-list>
+
 }
 
 

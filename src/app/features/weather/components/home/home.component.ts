@@ -54,11 +54,17 @@ export class HomeComponent implements OnInit {
   addCityToFav(weather: Weather): void {
     if (this.weather$) {
       const favorite: IFavorites = {
-        cityId: weather.sys.id,
+        cityId: weather.id,
         country: weather.sys.country,
         city: weather.name,
       };
       this.favoriteService.addFavorite(favorite);
+    }
+  }
+
+  searchCity(event: any): void {
+    if (event.key === 'Enter' && this.newCity.length) {
+      this.weatherService.getNewCity(this.newCity)
     }
   }
 }

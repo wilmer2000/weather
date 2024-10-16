@@ -29,14 +29,14 @@ export class FavoritesService {
   }
 
   addFavorite(favorite: IFavorites): void {
-    let currentFavorites = this.dataSubject.getValue();
-    if (currentFavorites) {
-      currentFavorites = [...currentFavorites, favorite];
-    } else {
-      currentFavorites = [favorite];
+    let favorites = this.dataSubject.getValue() || [];
+
+    if (!this.favoriteExists(favorites, favorite.cityId)) {
+      favorites = [...favorites, favorite];
+      const favoritesString = JSON.stringify(favorites);
+      this.localStorage.setItem(FAVORITES_KEY_LOCAL_STORAGE, favoritesString);
+      this.dataSubject.next(favorites);
     }
-    this.localStorage.setItem(FAVORITES_KEY_LOCAL_STORAGE, currentFavorites);
-    this.dataSubject.next(currentFavorites);
   }
 
   removeFavorite(cityId: number): void {
@@ -53,5 +53,9 @@ export class FavoritesService {
     if (favorites) {
       this.dataSubject.next(favorites);
     }
+  }
+
+  private favoriteExists(favorites: IFavorites[], cityId: number): boolean {
+    return favorites.some(fav => fav.cityId === cityId);
   }
 }

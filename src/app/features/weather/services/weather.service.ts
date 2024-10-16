@@ -28,6 +28,10 @@ export class WeatherService {
     }
   }
 
+  getNewCity(city: string): void {
+    this.getWeatherByCity(city);
+  }
+
   getCurrentWeather(): Observable<Weather | null> {
     if (!this.localStorage.hasItem(WEATHER_KEY_LOCAL_STORAGE)) {
       this.getWeatherByCity('montevideo');
@@ -40,12 +44,18 @@ export class WeatherService {
       .pipe(catchError((err: HttpErrorResponse) => {
         throw err;
       }))
-      .subscribe((data: any) => this.setWeatherToLocalStorage(data));
+      .subscribe((data: any) => {
+        if (data.cod === '404') {
+          this.dataSubject.next(null);
+        } else {
+          this.setWeatherToLocalStorage(data);
+        }
+      });
   }
 
   private setWeatherToLocalStorage(data: any): void {
     const city = new Weather(data);
     this.localStorage.setItem(WEATHER_KEY_LOCAL_STORAGE, city);
-    this.dataSubject.next(this.localStorage.getItem(WEATHER_KEY_LOCAL_STORAGE));
+    this.dataSubject.next(city);
   }
 }

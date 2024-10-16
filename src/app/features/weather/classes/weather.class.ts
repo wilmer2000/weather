@@ -47,6 +47,10 @@ export class Weather {
     this.cod = data.cod;
   }
 
+  get getCityCode(): number {
+    return this.id;
+  }
+
   get getWind(): IWeatherWind {
     return this.wind;
   }
