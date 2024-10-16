@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatList, MatListItem } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
@@ -15,18 +15,21 @@ import { RouterLink } from '@angular/router';
   template: `
     <mat-list role="list">
       <mat-list-item role="listitem">
-        <button mat-button [routerLink]="'home'">Inicio</button>
+        <button mat-button [routerLink]="'home'" (click)="onClick()">Inicio</button>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <button mat-button [routerLink]="'favorites'">Favoritos</button>
+        <button mat-button [routerLink]="'favorites'" (click)="onClick()">Favoritos</button>
       </mat-list-item>
       <mat-list-item role="listitem">
-        <button mat-button [routerLink]="'settings'">Ajustes</button>
+        <button mat-button [routerLink]="'settings'" (click)="onClick()">Ajustes</button>
       </mat-list-item>
     </mat-list>
   `,
-  styles: ``,
 })
 export class MenuComponent {
+  onClickEmitter = output<void>();
 
+  onClick() {
+    this.onClickEmitter.emit();
+  }
 }
