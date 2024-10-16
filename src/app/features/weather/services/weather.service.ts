@@ -21,6 +21,13 @@ export class WeatherService {
 
   data$: Observable<Weather | null> = this.dataSubject.asObservable();
 
+  constructor() {
+    if (this.localStorage.hasItem(WEATHER_KEY_LOCAL_STORAGE)) {
+      const city = new Weather(this.localStorage.getItem(WEATHER_KEY_LOCAL_STORAGE));
+      this.dataSubject.next(city);
+    }
+  }
+
   getWeatherByCity(city: string): void {
     this.http.get(`${this.apiUrl}/city/${city}/EN`, { headers: this.headers })
       .subscribe((data: any) => this.setWeatherToLocalStorage(data));
@@ -28,7 +35,7 @@ export class WeatherService {
 
   getCurrentWeather(): Observable<Weather | null> {
     if (!this.localStorage.hasItem(WEATHER_KEY_LOCAL_STORAGE)) {
-      this.getWeatherByCity('landon');
+      this.getWeatherByCity('montevideo');
     }
     return this.data$;
   }

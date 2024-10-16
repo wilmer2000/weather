@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './features/weather/components/home/home.component';
 import { FavoritesComponent } from './features/weather/components/favorites/favorites.component';
 import { SettingsComponent } from './core/components/settings/settings.component';
-import { ContentComponent } from './features/weather/components/content/content.component';
+import { ContentComponent } from './core/components/content/content.component';
 
 export const routes: Routes = [
   {

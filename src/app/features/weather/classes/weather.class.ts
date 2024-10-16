@@ -47,12 +47,25 @@ export class Weather {
     this.cod = data.cod;
   }
 
-  // Example method to return the temperature in Celsius
-  getTemperatureInCelsius(): number {
-    return ((this.main.temp - 32) * 5) / 9;
+  get getWind(): IWeatherWind {
+    return this.wind;
+  }
+  get getCityDetail(): string {
+    return `${this.name} - ${this.sys.country}`;
   }
 
-  // Example method to get a summary of weather
+  get getWeatherDetail(): IWeatherMain {
+    return this.main;
+  }
+  get getIcon(): string {
+    return `https://openweather.site/img/wn/${this.weather[0].icon}.png`;
+  }
+
+  get getTemperatureInCelsius(): string {
+    const celsius = ((this.main.temp - 32) * 5) / 9;
+    return Math.floor(celsius).toString();
+  }
+
   getWeatherSummary(): string {
     if (this.weather.length > 0) {
       return `${this.weather[0].main}: ${this.weather[0].description}`;

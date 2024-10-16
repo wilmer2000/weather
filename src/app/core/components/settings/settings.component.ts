@@ -26,15 +26,6 @@ import { ISetting } from '../../interfaces/setting.interface';
     MatButton,
   ],
   templateUrl: './settings.component.html',
-  styles: `
-    .full-width {
-      width: 100%;
-    }
-
-    .container mat-card + mat-card {
-      margin-top: 1.5rem;
-    }
-  `,
 })
 export class SettingsComponent {
   readonly languages: Record<string, string> = SETTINGS_DEFAULT_VALUES;

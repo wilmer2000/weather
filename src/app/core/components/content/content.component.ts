@@ -4,7 +4,7 @@ import { MatDrawer, MatDrawerContainer, MatSidenavModule } from '@angular/materi
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
-import { MenuComponent } from '../section/menu/menu.component';
+import { MenuComponent } from '../../../features/weather/components/section/menu/menu.component';
 
 @Component({
   selector: 'app-content',
