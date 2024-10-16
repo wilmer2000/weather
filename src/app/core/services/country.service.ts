@@ -44,6 +44,9 @@ export class CountryService {
   getCurrentCities(countryCode: string = 'UY'): Observable<ICity[] | null> {
     if (!this.localStorage.hasItem(`${CITIES_KEY_LOCAL_STORAGE}${countryCode}`)) {
       this.getCitiesByCountryCode(countryCode);
+    } else {
+      const cities: ICity[] | null = this.localStorage.getItem(`${CITIES_KEY_LOCAL_STORAGE}${countryCode}`);
+      this.citiesSubject.next(cities);
     }
     return this.cities$;
   }

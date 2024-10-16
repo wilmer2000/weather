@@ -46,11 +46,13 @@ export class SettingsComponent implements OnInit {
   private readonly countryService: CountryService = inject(CountryService);
 
   ngOnInit(): void {
-    this.countryList$ = this.countryService.getCurrentCountries();
-    this.citiesList$ = this.countryService.getCurrentCities();
-
     const formValues = this.settingsService.getSettingsValue();
-    this.settingsForm.setValue(formValues);
+    this.settingsForm.patchValue(formValues);
+    const countrySelected = this.settingsForm.get('location')?.get('country')?.value;
+
+    this.countryList$ = this.countryService.getCurrentCountries();
+    console.log(countrySelected);
+    this.citiesList$ = this.countryService.getCurrentCities(countrySelected);
   }
 
   onCountryChange(event: MatSelectChange): void {
