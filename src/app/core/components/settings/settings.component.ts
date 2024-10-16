@@ -1,14 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatOption, MatSelect } from '@angular/material/select';
+import { MatOption, MatSelect, MatSelectChange } from '@angular/material/select';
 import { SETTINGS_DEFAULT_VALUES } from '../../constants/languages.constant';
-import { KeyValuePipe } from '@angular/common';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { SettingsService } from '../../services/settings.service';
 import { ISetting } from '../../interfaces/setting.interface';
+import { CountryService } from '../../services/country.service';
+import { ICity, ICountry } from '../../interfaces/contry.interface';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -24,20 +27,35 @@ import { ISetting } from '../../interfaces/setting.interface';
     MatOption,
     KeyValuePipe,
     MatButton,
+    AsyncPipe,
   ],
   templateUrl: './settings.component.html',
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   readonly languages: Record<string, string> = SETTINGS_DEFAULT_VALUES;
   settingsForm: FormGroup = new FormGroup({
     location: new FormGroup({
-      country: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
+      country: new FormControl('UY', Validators.required),
       city: new FormControl('', Validators.required),
     }),
     language: new FormControl('EN', Validators.required),
   });
+  countryList$: Observable<ICountry[] | null>;
+  citiesList$: Observable<ICity[] | null>;
   private readonly settingsService: SettingsService = inject(SettingsService);
+  private readonly countryService: CountryService = inject(CountryService);
+
+  ngOnInit(): void {
+    this.countryList$ = this.countryService.getCurrentCountries();
+    this.citiesList$ = this.countryService.getCurrentCities();
+
+    const formValues = this.settingsService.getSettingsValue();
+    this.settingsForm.setValue(formValues);
+  }
+
+  onCountryChange(event: MatSelectChange): void {
+    this.countryService.changeCurrentCities(event.value);
+  }
 
   save(): void {
     if (this.settingsForm.valid) {

@@ -1,19 +1,25 @@
 import { inject, Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { ISetting } from '../interfaces/setting.interface';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SETTINGS_DEFAULT_VALUES } from '../constants/settings.constant';
+import { BehaviorSubject } from 'rxjs';
+import { SETTINGS_DEFAULT_VALUES, SETTINGS_KEY_LOCAL_STORAGE } from '../constants/settings.constant';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SettingsService {
   private readonly localStorage: LocalStorageService = inject(LocalStorageService);
   private settingSubject: BehaviorSubject<ISetting> = new BehaviorSubject(SETTINGS_DEFAULT_VALUES);
 
-  setting$: Observable<ISetting> = this.settingSubject.asObservable();
+  getSettingsValue(): ISetting {
+    if (!this.localStorage.hasItem(SETTINGS_KEY_LOCAL_STORAGE)) {
+      return SETTINGS_DEFAULT_VALUES;
+    }
+    return this.settingSubject.getValue();
+  }
 
   save(settings: ISetting): void {
+    this.localStorage.setItem(SETTINGS_KEY_LOCAL_STORAGE, settings);
     this.settingSubject.next(settings);
   }
 }

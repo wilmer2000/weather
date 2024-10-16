@@ -16,3 +16,11 @@ export interface ICountryTZ {
   abbreviation: string;
   tzName: string;
 }
+
+export interface ICity {
+  name: string
+  countryCode: string
+  stateCode: string
+  latitude: string
+  longitude: string
+}

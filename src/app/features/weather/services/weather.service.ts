@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../env/enviroment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { LocalStorageService } from '../../../core/services/local-storage.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, Observable } from 'rxjs';
 import { WEATHER_KEY_LOCAL_STORAGE } from '../constants/weather.constant';
 import { Weather } from '../classes/weather.class';
 import { API_KEYS } from '../../../../../api-keys';
@@ -28,16 +28,19 @@ export class WeatherService {
     }
   }
 
-  getWeatherByCity(city: string): void {
-    this.http.get(`${this.apiUrl}/city/${city}/EN`, { headers: this.headers })
-      .subscribe((data: any) => this.setWeatherToLocalStorage(data));
-  }
-
   getCurrentWeather(): Observable<Weather | null> {
     if (!this.localStorage.hasItem(WEATHER_KEY_LOCAL_STORAGE)) {
       this.getWeatherByCity('montevideo');
     }
     return this.data$;
+  }
+
+  private getWeatherByCity(city: string): void {
+    this.http.get(`${this.apiUrl}/city/${city}/EN`, { headers: this.headers })
+      .pipe(catchError((err: HttpErrorResponse) => {
+        throw err;
+      }))
+      .subscribe((data: any) => this.setWeatherToLocalStorage(data));
   }
 
   private setWeatherToLocalStorage(data: any): void {

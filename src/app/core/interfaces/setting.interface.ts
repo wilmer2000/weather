@@ -5,6 +5,5 @@ export interface ISetting {
 
 export interface ISettingLoc {
   country: string;
-  state: string;
   city: string;
 }
